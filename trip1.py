@@ -18,7 +18,6 @@ right_motor = Motor(Port.D)
 front_motor_1 = Motor(Port.C)
 
 
-# hi adarsh
 ARM_MOTOR_SPEED = 400
 WHEEL_DIAMETER = 92
 AXLE_TRACK = 130
