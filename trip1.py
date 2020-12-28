@@ -37,9 +37,9 @@ robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
 
 robot.straight(1.97 * ROTATION)
 # Slow down and start slowly pushing forward
-'''
+robot.stop()
 robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
-'''
+
 # Fix later: Meant to be seconds
 i=0
 for i in range(0,20):
