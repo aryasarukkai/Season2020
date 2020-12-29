@@ -77,9 +77,11 @@ robot.turn(90)
 robot.stop()
 robot.settings(straight_speed=100, turn_rate=30)
 robot.straight(580)
+robot.stop()
+robot.settings(straight_speed=50, turn_rate=30)
+drive_utils.drive_till_black(robot, left_sensor)
+drive_utils.drive_till_white(robot, left_sensor)
 
-drive_utils.drive_till_black(robot, right_sensor)
-drive_utils.drive_till_white(robot, right_sensor)
 '''
 steering_A.on_for_rotations(0,SpeedPercent(20), 0.37)
 
