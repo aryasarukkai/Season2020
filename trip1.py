@@ -26,10 +26,11 @@ front_motor_1 = Motor(Port.C)
 
 # Initialize the color sensors and motors.
 right_sensor = ColorSensor(Port.S1)
-
+left_sensor = ColorSensor(Port.S4)
 ARM_MOTOR_SPEED = 400
 WHEEL_DIAMETER = 92
 AXLE_TRACK = 130
+DRIVE_SPEED_FAST = 350
 DRIVE_SPEED_NORMAL = 200
 DRIVE_SPEED_SLOW = 100
 DRIVE_EXTRA_SLOW = 30
@@ -38,16 +39,14 @@ CIRCUMFERENCE = 3.14 * WHEEL_DIAMETER # Diameter = 100mm, Circumference = 314.10
 # All parameters are in millimeters
 robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_track=AXLE_TRACK)
 
-# Set the straight speed to 100 and turn speed to 100
-robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)   
-
 # Move forward to Step Counter
+robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)   
 robot.straight(800)
 # Slow down and start slowly pushing forward
 robot.stop()
 robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
 
-# Fix later: Meant to be seconds
+# Do Step Counter (Small Steps so it doesn't get stuck)
 i=0
 for i in range(0,20):
     robot.straight(10)
@@ -65,48 +64,38 @@ robot.turn(-135)
 robot.stop()
 
 # Back up to wall
-robot.settings(straight_speed=100, turn_rate=30)
+robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
 robot.straight(-45)
-robot.straight(125)
+
+# Go straight a little bit
+robot.straight(140)
 robot.stop()
+
 # Rotate Right
-robot.settings(straight_speed=100, turn_rate=30)
+robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
 robot.turn(90)
+robot.stop()
 
 # Go straight to get closer to the treadmill
+robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
+robot.straight(560)
 robot.stop()
-robot.settings(straight_speed=100, turn_rate=30)
-robot.straight(580)
-robot.stop()
+
+# Look for black followed by white to position the tire exactly on the treadmill
 robot.settings(straight_speed=50, turn_rate=30)
-drive_utils.drive_till_black(robot, left_sensor)
 drive_utils.drive_till_white(robot, left_sensor)
 
-'''
-steering_A.on_for_rotations(0,SpeedPercent(20), 0.37)
 
-# Go straight till you reach the treadmill
-steering_drive.on_for_rotations(0,SpeedPercent(20), 0.735)
-steering_drive.on_for_rotations(0,SpeedPercent(20), 2.54)
+# Rotate the tire to move the tradmill
+# front_motor_1.run_time(speed=config.ARM_MOTOR_SPEED, time=500, then=Stop.HOLD, wait=False)
+front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5000, then=Stop.HOLD, wait=True)
 
-# Rotate the front wheel attachment (large motor C)
-motor_C.on_for_rotations(0,SpeedPercent(100), 13)
+# Come back home
+robot.stop()
+robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)
+robot.straight(-1700)
 
-# Move back to the Pull up bar by going in reverse on steering drive
-steering_drive.on_for_rotations(0,SpeedPercent(-50), 2.3)
+# End of trip: Stop Robot
+robot.stop()
 
-# Rotate left by turning wheel motor D
-steering_D.on_for_degrees(0,SpeedPercent(50), 140)
 
-# Go straight to go thrugh pull up bar
-steering_drive.on_for_degrees(0,SpeedPercent(30), 513)
-
-# Go reverse to come out of the pull up bar
-steering_drive.on_for_degrees(0,SpeedPercent(-30), 560)
-
-# Turn back towards base using motor D
-steering_D.on_for_degrees(0, SpeedPercent(50), -140)
-
-# Final run to head back to base
-steering_drive.on_for_degrees(0,SpeedPercent(50), 1286)
-'''
