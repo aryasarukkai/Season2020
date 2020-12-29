@@ -22,7 +22,7 @@ left_motor = Motor(Port.A)
 right_motor = Motor(Port.D)
 front_motor_1 = Motor(Port.C)
 
-# Initialize the color sensor.
+# Initialize the color sensors and motors.
 right_sensor = ColorSensor(Port.S4)
 
 ARM_MOTOR_SPEED = 400
@@ -40,30 +40,43 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_t
 robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)   
 
 # Move forward to Step Counter
-robot.straight(700)
+robot.straight(800)
 # Slow down and start slowly pushing forward
 robot.stop()
 robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
 
 # Fix later: Meant to be seconds
 i=0
-for i in range(0,28):
+for i in range(0,20):
     robot.straight(10)
     sleep(0.4)
     i = i + 1
-
 robot.stop()
-robot.settings(straight_speed=20, turn_rate=20)
+
+# Backup a little
 robot.straight(-50)
-robot.turn(-90)
+robot.stop()
+
+# Rotate left to align with wall
+robot.settings(straight_speed=100, turn_rate=30)
+robot.turn(-135)
+robot.stop()
+
+# Back up to wall
+robot.settings(straight_speed=100, turn_rate=30)
+robot.straight(-45)
+robot.straight(125)
+robot.stop()
+# Rotate Right
+robot.settings(straight_speed=100, turn_rate=30)
+robot.turn(90)
+
+# Go straight to get closer to the treadmill
+robot.stop()
+robot.settings(straight_speed=100, turn_rate=30)
+robot.straight(580)
+
 '''
-steering_drive.on_for_seconds(0,SpeedPercent(1.5), 17.5)
-
-# Rotate one wheel to turn back into the wall
-steering_A.on_for_seconds(0,SpeedPercent(-20), 3)
-
-# Go forward for few seconds and then turn right
-steering_drive.on_for_seconds(0, SpeedPercent(20), 0.5)
 steering_A.on_for_rotations(0,SpeedPercent(20), 0.37)
 
 # Go straight till you reach the treadmill
