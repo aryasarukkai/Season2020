@@ -45,7 +45,7 @@ i=0
 for i in range(0,20):
     robot.straight(20)
     i = i + 1
-
+robot.stop()
 robot.settings(straight_speed=20, turn_rate=20)
 robot.turn(-20)
 
