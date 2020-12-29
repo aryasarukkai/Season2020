@@ -23,7 +23,7 @@ WHEEL_DIAMETER = 92
 AXLE_TRACK = 130
 DRIVE_SPEED_NORMAL = 200
 DRIVE_SPEED_SLOW = 100
-DRIVE_EXTRA_SLOW = 50
+DRIVE_EXTRA_SLOW = 30
 CIRCUMFERENCE = 3.14 * WHEEL_DIAMETER # Diameter = 100mm, Circumference = 314.10mm = 1 rotation
 ROTATION = 3.14 * WHEEL_DIAMETER # Diameter = 92mm, Circumference = mm = 1 rotation
 
@@ -34,8 +34,7 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_t
 robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
 
 # Move forward to Step Counter
-
-robot.straight(1.97 * ROTATION)
+robot.straight(700)
 # Slow down and start slowly pushing forward
 robot.stop()
 robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
@@ -43,13 +42,16 @@ robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
 # Fix later: Meant to be seconds
 i=0
 for i in range(0,20):
-    robot.straight(20)
+    robot.straight(30)
     i = i + 1
+
 robot.stop()
-robot.settings(straight_speed=20, turn_rate=20)
-robot.turn(-20)
 
 '''
+robot.settings(straight_speed=20, turn_rate=20)
+
+robot.turn(-20)
+
 steering_drive.on_for_seconds(0,SpeedPercent(1.5), 17.5)
 
 # Rotate one wheel to turn back into the wall
