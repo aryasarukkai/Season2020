@@ -41,17 +41,15 @@ robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
 
 # Fix later: Meant to be seconds
 i=0
-for i in range(0,20):
-    robot.straight(30)
+for i in range(0,28):
+    robot.straight(10)
     i = i + 1
 
 robot.stop()
-
-'''
 robot.settings(straight_speed=20, turn_rate=20)
 
 robot.turn(-20)
-
+'''
 steering_drive.on_for_seconds(0,SpeedPercent(1.5), 17.5)
 
 # Rotate one wheel to turn back into the wall
