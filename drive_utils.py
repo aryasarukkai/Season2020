@@ -10,7 +10,7 @@ def drive_till_black(robot, sensor):
         if (reflection_value <= config.BLACK_THRESHOLD and detectedWhite):
             # print("Black " + str(reflection_value))
             robot.stop()
-            break
+            break;
         elif (reflection_value >= config.WHITE_THRESHOLD):
             detectedWhite = True
             # print("White " + str(reflection_value))
@@ -29,7 +29,7 @@ def drive_till_white(robot, sensor):
             break
         elif (reflection_value <= config.BLACK_THRESHOLD):
             detectedBlack = True
-
+            
 def gyro_turn(robot, gyro, angle):
     gyro.reset_angle(0)
 
@@ -53,41 +53,3 @@ def gyro_turn(robot, gyro, angle):
                 gyro_turn(robot, gyro_sensor, (direction * -1) * (abs(gyro.angle()) - angle))
                 
             break;
-        
-def follow_line(drive_speed, distance):
-    left_motor = Motor(Port.D, Direction.CLOCKWISE)
-    right_motor = Motor(Port.A, Direction.CLOCKWISE)
-
-    line_sensor = ColorSensor(Port.S1)
-
-    # All parameters are in millimeters
-    robot = DriveBase(left_motor, right_motor, wheel_diameter=config.WHEEL_DIAMETER, axle_track=config.AXLE_TRACK)
-
-    # Set the straight speed to 100 and turn speed to 100
-    robot.settings(straight_speed=drive_speed, turn_rate=30)
-    robot.reset()
-
-    BLACK = 3
-    WHITE = 62
-
-    threshold_1 = int((WHITE-BLACK)/3)+BLACK
-    threshold_2 = WHITE-int((WHITE-BLACK)/3)
-
-    while True:
-        reflection_value = line_sensor.reflection()
-        if (reflection_value <= threshold_1):
-            robot.stop()
-            right_motor.run_angle(drive_speed, 50)
-            left_motor.stop()
-
-        elif (reflection_value >= threshold_2):
-            robot.stop()
-            left_motor.run_angle(drive_speed, 50)
-            right_motor.stop()
-
-        else:
-            robot.drive(drive_speed, 0)
-            wait(10)
-            if (robot.distance() >= distance):
-                robot.stop()
-
