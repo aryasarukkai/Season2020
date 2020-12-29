@@ -1,12 +1,14 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-InfraredSensor, UltrasonicSensor, GyroSensor)
+from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor)
 from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 from time import sleep
+import config
+import drive_utils
+
 # import line_follow.py
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
@@ -23,7 +25,7 @@ right_motor = Motor(Port.D)
 front_motor_1 = Motor(Port.C)
 
 # Initialize the color sensors and motors.
-right_sensor = ColorSensor(Port.S4)
+right_sensor = ColorSensor(Port.S1)
 
 ARM_MOTOR_SPEED = 400
 WHEEL_DIAMETER = 92
@@ -76,6 +78,8 @@ robot.stop()
 robot.settings(straight_speed=100, turn_rate=30)
 robot.straight(580)
 
+drive_utils.drive_till_black(robot, right_sensor)
+drive_utils.drive_till_white(robot, right_sensor)
 '''
 steering_A.on_for_rotations(0,SpeedPercent(20), 0.37)
 
