@@ -9,7 +9,6 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 
 import config
 import drive_utils
-
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
 # Start a stopwatch to measure elapsed time
@@ -22,12 +21,15 @@ ev3 = EV3Brick()
 left_motor = Motor(Port.A)
 right_motor = Motor(Port.D)
 front_motor_1 = Motor(Port.C)
+front_motor_2 = Motor(Port.B)
 
 left_motor.reset_angle(0)
 right_motor.reset_angle(0)
 front_motor_1.reset_angle(0)
+front_motor_2.reset_angle(0)
 
 # Initialize the color sensor.
+left_sensor = ColorSensor(Port.S4)
 right_sensor = ColorSensor(Port.S1)
 
 # Initialize the Gyro sensor
@@ -44,25 +46,25 @@ robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=config.TURN_R
 robot.straight(600)
 
 # Drive forward till we sense white followed by black
-drive_utils.drive_till_black(robot, right_sensor)
+drive_utils.drive_till_black(robot, left_sensor)
         
 # Turn left
-drive_utils.gyro_turn(robot, gyro, -23)
+drive_utils.gyro_turn(robot, gyro, -30)
 
-# Go forward
-robot.straight(270)
+# Go forward to the tire
+robot.straight(265)
 
 # Turn the arm up to flip the tire
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 320, then=Stop.HOLD, wait=True)
 
-# Go backwards
+# Go backwards 
 robot.straight(-100)
 
-# Turn left
-drive_utils.gyro_turn(robot, gyro, -35)
+# Turn left to go under the bridge
+drive_utils.gyro_turn(robot, gyro, -46)
 
-# Turn the arm down
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -320, then=Stop.HOLD, wait=True)
+# Bring the arm down so that it doesn't crash in the bridge
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -150, then=Stop.HOLD, wait=True)
 
 # Go under the bridge
 robot.straight(300)
@@ -70,13 +72,26 @@ robot.straight(300)
 # Turn the arm up to not interfere
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 320, then=Stop.HOLD, wait=True)
 
-# Go under the bridge
+# Go under the bridge and align with black line beyond the bridge
+drive_utils.drive_till_black(robot, right_sensor)
+
+# Go forward a bit more
+robot.straight(150)
+
+# Turn left towards the swing
+drive_utils.gyro_turn(robot, gyro, -99)
+
+# Bring the Tire arm down
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -230, then=Stop.HOLD, wait=True)
+
+#Bring slide arm down
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 202, then=Stop.HOLD, wait=True)
+
+#Go straight to the slide
 robot.straight(240)
 
-# Turn left
-drive_utils.gyro_turn(robot, gyro, -85)
-
-
+#slide the people off the slide
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -104, then=Stop.HOLD, wait=True)
 
 
 
