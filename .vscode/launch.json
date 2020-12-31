@@ -18,12 +18,22 @@
 			"program": "/home/robot/${workspaceRootFolderName}/trip2.py",
 			"interactiveTerminal": false
 			
-		}
+		},
+
 		{
 			"name": "Download and Run trip 4",
 			"type": "ev3devBrowser",
 			"request": "launch",
 			"program": "/home/robot/${workspaceRootFolderName}/trip4.py",
+			"interactiveTerminal": false
+			
+		},
+
+		{
+			"name": "Download and Run trip 3",
+			"type": "ev3devBrowser",
+			"request": "launch",
+			"program": "/home/robot/${workspaceRootFolderName}/trip3.py",
 			"interactiveTerminal": false
 			
 		}
