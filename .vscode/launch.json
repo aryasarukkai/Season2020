@@ -5,17 +5,25 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Download and Run trip1",
+			"name": "Download and Run trip 1",
 			"type": "ev3devBrowser",
 			"request": "launch",
 			"program": "/home/robot/${workspaceRootFolderName}/trip4.py",
 			"interactiveTerminal": false
 		},
 		{
-			"name": "Download and Run trip2",
+			"name": "Download and Run trip 2",
 			"type": "ev3devBrowser",
 			"request": "launch",
 			"program": "/home/robot/${workspaceRootFolderName}/trip2.py",
+			"interactiveTerminal": false
+			
+		}
+		{
+			"name": "Download and Run trip 4",
+			"type": "ev3devBrowser",
+			"request": "launch",
+			"program": "/home/robot/${workspaceRootFolderName}/trip4.py",
 			"interactiveTerminal": false
 			
 		}
