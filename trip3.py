@@ -1,5 +1,3 @@
-# Copy and paste content below this line into new programs.
-
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
