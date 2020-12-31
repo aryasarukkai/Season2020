@@ -41,7 +41,8 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_t
 # Set the straight speed and turn rate
 robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=30)
 
-front_motor_1.run_angle(100, 3, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(100, 10, then=Stop.HOLD, wait=True)
+front_motor_1.stop()
 
 robot.straight(320)
 robot.turn()
