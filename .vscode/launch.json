@@ -10,8 +10,7 @@
 			"request": "launch",
 			"program": "/home/robot/${workspaceRootFolderName}/trip1.py",
 			"interactiveTerminal": false
-		}
-
+		},
 		{
 			"name": "Download and Run trip2",
 			"type": "ev3devBrowser",

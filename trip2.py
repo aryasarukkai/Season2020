@@ -70,7 +70,7 @@ robot.straight(-200)
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -150, then=Stop.HOLD, wait=True)
 
 # Go under the bridge
-robot.straight(450)
+robot.straight(500)
 
 # Turn the arm up to not interfere
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 320, then=Stop.HOLD, wait=True)
@@ -82,16 +82,16 @@ drive_utils.drive_till_black(robot, right_sensor)
 robot.straight(150)
 
 # Turn left towards the swing
-drive_utils.gyro_turn(robot, gyro, -107)
+drive_utils.gyro_turn(robot, gyro, -105)
 
 # Bring the Tire arm down
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -230, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -240, then=Stop.HOLD, wait=True)
 
 #Bring slide arm down
 front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 210, then=Stop.HOLD, wait=True)
 
 #Go straight to the slide
-robot.straight(240)
+robot.straight(210)
 
 #slide the people off the slide
 front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -120, then=Stop.HOLD, wait=True)
