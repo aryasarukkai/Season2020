@@ -12,7 +12,7 @@ DRIVE_SPEED_NORMAL = 200
 DRIVE_SPEED_SLOW = 50
 
 # Turn speeds
-TURN_RATE = 150`
+TURN_RATE = 150
 TURN_THRESHOLD = 5
 
 # Color sensor thresholds

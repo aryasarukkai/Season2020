@@ -39,10 +39,10 @@ def gyro_turn(robot, gyro, angle):
     while True:
         if (direction == -1):
             # Turn left
-            robot.turn(-1)
+            robot.turn(-2)
         else:
             # Turn right
-            robot.turn(1)
+            robot.turn(2)
         
         if (abs(gyro.angle()) >= angle):
             print("Stopping the robot at angle " + str(gyro.angle()))

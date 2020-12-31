@@ -43,19 +43,19 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=config.WHEEL_DIAMETER,
 robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=config.TURN_RATE)
 
 # Go forward 600mm 
-robot.straight(600)
+robot.straight(750)
 
 # Drive forward till we sense white followed by black
 drive_utils.drive_till_black(robot, left_sensor)
         
 # Turn left
-drive_utils.gyro_turn(robot, gyro, -30)
+drive_utils.gyro_turn(robot, gyro, -38)
 
 # Go forward to the tire
 robot.straight(265)
 
 # Turn the arm up to flip the tire
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 320, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED_FAST, 320, then=Stop.HOLD, wait=True)
 
 # Go backwards 
 robot.straight(-100)
@@ -63,11 +63,14 @@ robot.straight(-100)
 # Turn left to go under the bridge
 drive_utils.gyro_turn(robot, gyro, -46)
 
+# Go back and align with the wall before going forward.
+robot.straight(-200)
+
 # Bring the arm down so that it doesn't crash in the bridge
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -150, then=Stop.HOLD, wait=True)
 
 # Go under the bridge
-robot.straight(300)
+robot.straight(450)
 
 # Turn the arm up to not interfere
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 320, then=Stop.HOLD, wait=True)
@@ -79,19 +82,19 @@ drive_utils.drive_till_black(robot, right_sensor)
 robot.straight(150)
 
 # Turn left towards the swing
-drive_utils.gyro_turn(robot, gyro, -99)
+drive_utils.gyro_turn(robot, gyro, -107)
 
 # Bring the Tire arm down
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -230, then=Stop.HOLD, wait=True)
 
 #Bring slide arm down
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 202, then=Stop.HOLD, wait=True)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 210, then=Stop.HOLD, wait=True)
 
 #Go straight to the slide
 robot.straight(240)
 
 #slide the people off the slide
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -104, then=Stop.HOLD, wait=True)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -120, then=Stop.HOLD, wait=True)
 
 
 

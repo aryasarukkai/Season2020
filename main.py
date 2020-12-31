@@ -10,7 +10,7 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 import config
 import drive_utils
 
-import miksav
+import trip2
 
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
