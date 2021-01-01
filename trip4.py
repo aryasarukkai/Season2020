@@ -41,16 +41,60 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_t
 # Set the straight speed and turn rate
 robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=30)
 
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 50, then=Stop.HOLD, wait=False)
+# First adjust the elevator, Go down to touch floor, then go back up to give enough distance to ground
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -15, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=True)
 front_motor_1.stop()
 
 
+# Go straight to the bench mission
 robot.straight(430)
+robot.stop()
+robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=30)
+
+# Turn left and then right to topple bench
 robot.turn(-35)
 robot.turn(25)
 
-robot.straight(120)
-robot.straight(-110)
+# Back out a bit and then go forward to goto bar
+robot.straight(-30)
+robot.straight(110)
+
+# Turn to align with bar and then pull elevator up to dislodge bar then turn left to be back to parallel path
+robot.turn(15)
+front_motor_1.run_angle(2*config.ARM_MOTOR_SPEED_FAST, 200, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -200, then=Stop.HOLD, wait=True)
+robot.turn(-15)
+
+# Backup, lower elevator, go further back
+robot.straight(-10)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -120, then=Stop.HOLD, wait=True)
+robot.straight(-200)
+robot.stop()
+
+# Turn right and then goto the basketball mission
+robot.settings(straight_speed=config.DRIVE_SPEED_FAST, turn_rate=30)
+robot.turn(60)
+robot.straight(160)
+robot.turn(20)
+robot.straight(300)
+robot.turn(-90)
+robot.straight(250)
+robot.turn(-15)
+robot.straight(35)
+
+# Now pull up basketball basket to middle
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 3950, then=Stop.HOLD, wait=True)
+
+# Goto to robot dance area and dance
+robot.turn(-70)
+robot.straight(-300)
+i=0
+for i in range(0,20):
+    robot.turn(-10)
+    robot.turn(10)
+    i=i+1
+
 
 
 # front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 550, then=Stop.HOLD, wait=True)
