@@ -68,7 +68,7 @@ robot.turn(-15)
 
 # Backup, lower elevator, go further back
 robot.straight(-10)
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -120, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -100, then=Stop.HOLD, wait=True)
 robot.straight(-200)
 robot.stop()
 
@@ -84,7 +84,7 @@ robot.turn(-15)
 robot.straight(35)
 
 # Now pull up basketball basket to middle
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 3950, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 1000, then=Stop.HOLD, wait=True)
 
 # Goto to robot dance area and dance
 robot.turn(-70)

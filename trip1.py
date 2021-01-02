@@ -85,13 +85,15 @@ robot.stop()
 robot.settings(straight_speed=50, turn_rate=30)
 drive_utils.drive_till_white(robot, left_sensor)
 
+# Tweaking to get to exact position HCK1
+robot.straight(5)
+robot.stop()
 
 # Rotate the tire to move the tradmill
 # front_motor_1.run_time(speed=config.ARM_MOTOR_SPEED, time=500, then=Stop.HOLD, wait=False)
 front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5000, then=Stop.HOLD, wait=True)
 
 # Come back home
-robot.stop()
 robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)
 robot.straight(-1700)
 
