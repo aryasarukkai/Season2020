@@ -64,11 +64,11 @@ robot.turn(-135)
 robot.stop()
 
 # Back up to wall
-robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
+robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
 robot.straight(-45)
 
 # Go straight a little bit
-robot.straight(140)
+robot.straight(138)
 robot.stop()
 
 # Rotate Right
@@ -86,7 +86,7 @@ robot.settings(straight_speed=50, turn_rate=30)
 drive_utils.drive_till_white(robot, left_sensor)
 
 # Tweaking to get to exact position HCK1
-robot.straight(5)
+robot.straight(10)
 robot.stop()
 
 # Rotate the tire to move the tradmill
@@ -95,7 +95,7 @@ front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5000, then=Stop.HOLD, wait=T
 
 # Come back home
 robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)
-robot.straight(-1700)
+robot.straight(-1880)
 
 # End of trip: Stop Robot
 robot.stop()

@@ -64,6 +64,10 @@ robot.straight(110)
 robot.turn(15)
 front_motor_1.run_angle(2*config.ARM_MOTOR_SPEED_FAST, 200, then=Stop.HOLD, wait=True)
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -200, then=Stop.HOLD, wait=True)
+
+# Doing it one more time to ensure that the 
+front_motor_1.run_angle(2*config.ARM_MOTOR_SPEED_FAST, 250, then=Stop.HOLD, wait=True)
+front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -250, then=Stop.HOLD, wait=True)
 robot.turn(-15)
 
 # Backup, lower elevator, go further back
@@ -87,13 +91,15 @@ robot.straight(35)
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 1000, then=Stop.HOLD, wait=True)
 
 # Goto to robot dance area and dance
-robot.turn(-70)
-robot.straight(-300)
+robot.turn(-75)
+robot.straight(-320)
 i=0
 for i in range(0,20):
-    robot.turn(-10)
-    robot.turn(10)
+    robot.turn(-15)
+    robot.turn(15)
     i=i+1
+
+robot.stop()
 
 
 
