@@ -23,6 +23,12 @@ ev3 = EV3Brick()
 left_motor = Motor(Port.A)
 right_motor = Motor(Port.D)
 front_motor_1 = Motor(Port.C)
+front_motor_2 = Motor(Port.B)
+
+left_motor.reset_angle(0)
+right_motor.reset_angle(0)
+front_motor_1.reset_angle(0)
+front_motor_2.reset_angle(0)
 
 # Initialize the color sensors and motors.
 right_sensor = ColorSensor(Port.S1)
@@ -68,7 +74,8 @@ robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
 robot.straight(-45)
 
 # Go straight a little bit
-robot.straight(138)
+# HCK Adjusted distance to adjust lower 1/3/21 from 138 to 134 to 130 to 128
+robot.straight(128)
 robot.stop()
 
 # Rotate Right
@@ -92,6 +99,19 @@ robot.stop()
 # Rotate the tire to move the tradmill
 # front_motor_1.run_time(speed=config.ARM_MOTOR_SPEED, time=500, then=Stop.HOLD, wait=False)
 front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5000, then=Stop.HOLD, wait=True)
+
+front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=True)
+# keep pushing down while going back
+front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED, 30, then=Stop.HOLD, wait=False)
+
+# Pull back rowing machine
+robot.straight(-180)
+
+# Turn left to pull into small circle
+robot.turn(-60)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -80, then=Stop.HOLD, wait=True)
+robot.turn(60)
+robot.stop()
 
 # Come back home
 robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)

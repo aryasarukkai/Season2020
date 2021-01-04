@@ -23,6 +23,12 @@ ev3 = EV3Brick()
 left_motor = Motor(Port.A)
 right_motor = Motor(Port.D)
 front_motor_1 = Motor(Port.C)
+front_motor_2 = Motor(Port.B)
+
+left_motor.reset_angle(0)
+right_motor.reset_angle(0)
+front_motor_1.reset_angle(0)
+front_motor_2.reset_angle(0)
 
 # Initialize the color sensors and motors.
 right_sensor = ColorSensor(Port.S1)

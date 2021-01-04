@@ -51,4 +51,16 @@ gyro.reset_angle(0)
 robot = DriveBase(left_motor, right_motor, wheel_diameter=config.WHEEL_DIAMETER, axle_track=config.AXLE_TRACK)
 
 # Set the straight speed and turn rate
-robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=config.TURN_RATE)
+robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=0.5*config.TURN_RATE)
+
+front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=True)
+# keep pushing down while going back
+front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED, 30, then=Stop.HOLD, wait=False)
+
+# Pull back rowing machine
+robot.straight(-180)
+
+# Turn left to pull into small circle
+robot.turn(-50)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -120, then=Stop.HOLD, wait=True)
+robot.turn(50)
