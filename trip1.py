@@ -11,6 +11,8 @@ import drive_utils
 
 # import line_follow.py
 
+# TRIP 1 CODE  ###########################
+
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
 # Start a stopwatch to measure elapsed time

@@ -11,6 +11,7 @@ import drive_utils
 
 # import line_follow.py
 
+# TRIP 4 CODE ########################
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
 # Start a stopwatch to measure elapsed time
@@ -103,6 +104,7 @@ i=0
 for i in range(0,20):
     robot.turn(-15)
     robot.turn(15)
+    ev3.speaker.play_notes(['C4/4', 'C4/4', 'G4/4', 'G4/4'])
     i=i+1
 
 robot.stop()
