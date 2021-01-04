@@ -9,6 +9,9 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 
 import config
 import drive_utils
+
+# TRIP 3 CODE  ##################
+
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
 # Start a stopwatch to measure elapsed time
