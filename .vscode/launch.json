@@ -36,6 +36,14 @@
 			"program": "/home/robot/${workspaceRootFolderName}/trip3.py",
 			"interactiveTerminal": false
 			
+		},
+		{
+			"name": "Download and Run all",
+			"type": "ev3devBrowser",
+			"request": "launch",
+			"program": "/home/robot/${workspaceRootFolderName}/all_trips.py",
+			"interactiveTerminal": false
+			
 		}
 	]
 }
