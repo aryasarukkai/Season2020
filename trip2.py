@@ -51,7 +51,7 @@ robot.straight(750)
 drive_utils.drive_till_black(robot, left_sensor)
         
 # Turn left
-drive_utils.gyro_turn(robot, gyro, -38)
+drive_utils.gyro_turn(robot, gyro, -37)
 
 # Go forward to the tire
 robot.straight(265)
@@ -84,19 +84,34 @@ drive_utils.drive_till_black(robot, right_sensor)
 robot.straight(150)
 
 # Turn left towards the swing
-drive_utils.gyro_turn(robot, gyro, -105)
+drive_utils.gyro_turn(robot, gyro, -103)
 
 # Bring the Tire arm down
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -240, then=Stop.HOLD, wait=True)
 
 #Bring slide arm down
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 210, then=Stop.HOLD, wait=True)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 205, then=Stop.HOLD, wait=True)
 
 #Go straight to the slide
 robot.straight(210)
 
 #slide the people off the slide
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -120, then=Stop.HOLD, wait=True)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED_SUPER_FAST, -120, then=Stop.HOLD, wait=True)
+
+robot.stop()
+
+# Set the straight speed and turn rate
+robot.settings(straight_speed=config.DRIVE_SPEED_SUPER_FAST, turn_rate=config.TURN_RATE)
+
+# Turn left to go back to base
+robot.turn(19)
+
+#Go straight to base
+robot.straight(200)
+
+# Turn left to go back to base
+robot.turn(-17)
 
 
-
+#Go straight to base
+robot.straight(1000)
