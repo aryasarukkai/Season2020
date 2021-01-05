@@ -23,7 +23,7 @@ def drive_till_white(robot, sensor):
         robot.drive(config.DRIVE_SPEED_SLOW, 0)
         reflection_value = sensor.reflection()
         i = i + 1
-        if (i > 10000):
+        if (i > 2500):
             break
         if (reflection_value >= config.WHITE_THRESHOLD and detectedBlack):
             # print("White " + str(reflection_value)) 
@@ -33,7 +33,7 @@ def drive_till_white(robot, sensor):
         elif (reflection_value <= config.BLACK_THRESHOLD):
             detectedBlack = True
             i = i + 1
-            if (i > 10000):
+            if (i > 2500):
                 break
             
 def gyro_turn(robot, gyro, angle):
