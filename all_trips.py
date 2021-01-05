@@ -69,11 +69,12 @@ ev3.speaker.say("TRIP ONE")
 ev3.screen.print("TRIP 1")
 
 # Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
+
 i=0
-while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+while ( (Button.LEFT not in ev3.buttons.pressed()) and (Button.RIGHT not in ev3.buttons.pressed()) ): 
     i = i + 1
 
-if (Button.LEFT in ev3.buttons.pressed())
+if (Button.LEFT in ev3.buttons.pressed()):
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
@@ -123,8 +124,8 @@ if (Button.LEFT in ev3.buttons.pressed())
     robot.straight(-45)
 
     # Go straight a little bit
-    # HCK 1: Too far in, reduce by .8 cm // was 138 --> 130
-    robot.straight(130)
+    # HCK 1: Too far in, reduce by .8 cm // was 138 --> 130 --> 125
+    robot.straight(125)
     robot.stop()
 
     # Rotate Right
@@ -188,10 +189,10 @@ ev3.screen.print("TRIP 2")
 
 # Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
 i=0
-while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+while ( (Button.LEFT not in ev3.buttons.pressed()) and (Button.RIGHT not in ev3.buttons.pressed()) ): 
     i = i + 1
 
-if (Button.LEFT in ev3.buttons.pressed())
+if (Button.LEFT in ev3.buttons.pressed()):
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
@@ -292,9 +293,9 @@ ev3.screen.print("TRIP 3")
 
 # Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
 i=0
-while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+while ( (Button.LEFT not in ev3.buttons.pressed()) and (Button.RIGHT not in ev3.buttons.pressed()) ): 
     i = i + 1
-if (Button.LEFT in ev3.buttons.pressed())
+if (Button.LEFT in ev3.buttons.pressed()):
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
@@ -354,10 +355,10 @@ ev3.screen.print("TRIP 4")
 
 # Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
 i=0
-while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+while ( (Button.LEFT not in ev3.buttons.pressed()) and (Button.RIGHT not in ev3.buttons.pressed()) ): 
     i = i + 1
 
-if (Button.LEFT in ev3.buttons.pressed())
+if (Button.LEFT in ev3.buttons.pressed()):
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
@@ -393,10 +394,11 @@ if (Button.LEFT in ev3.buttons.pressed())
 
     # Turn left and then right to topple bench
     robot.turn(-35)
+    robot.straight(-30)
     robot.turn(25)
 
     # Back out a bit and then go forward to goto bar
-    robot.straight(-30)
+    # DBG Original robot.straight(-30)
     robot.straight(110)
 
     # Turn to align with bar and then pull elevator up to dislodge bar then turn left to be back to parallel path
@@ -411,7 +413,8 @@ if (Button.LEFT in ev3.buttons.pressed())
 
     # Backup, lower elevator, go further back
     robot.straight(-10)
-    front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -100, then=Stop.HOLD, wait=True)
+    # HCK - reduced lowering from -100 to -70 
+    front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -70, then=Stop.HOLD, wait=True)
     robot.straight(-200)
     robot.stop()
 
@@ -425,6 +428,8 @@ if (Button.LEFT in ev3.buttons.pressed())
     robot.straight(250)
     robot.turn(-15)
     robot.straight(35)
+    # HCK Adding more forward distance as it stopped working
+    robot.straight(20)
 
     # Now pull up basketball basket to middle
     front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 1000, then=Stop.HOLD, wait=True)
@@ -436,7 +441,7 @@ if (Button.LEFT in ev3.buttons.pressed())
     for i in range(0,20):
         robot.turn(-15)
         robot.turn(15)
-        ev3.speaker.play_notes(['C4/4', 'C4/4', 'G4/4', 'G4/4'])
+        ev3.speaker.play_notes(['C4/4', 'C4/4', 'G4/4', 'G4/4'], tempo=278)
         i=i+1
 
     robot.stop()

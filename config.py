@@ -16,6 +16,7 @@ TURN_RATE = 150
 TURN_THRESHOLD = 5
 
 # Color sensor thresholds
-BLACK_THRESHOLD = 10
-WHITE_THRESHOLD = 90
+# Used to be 10 and 90 but missed detecting white/black sometimes, so made 20 and 80
+BLACK_THRESHOLD = 20
+WHITE_THRESHOLD = 80
 
