@@ -11,6 +11,8 @@ import config
 import drive_utils
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
+# TRIP 2 CODE  ###################
+
 # Start a stopwatch to measure elapsed time
 watch = StopWatch()
 
