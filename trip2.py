@@ -42,14 +42,14 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=config.WHEEL_DIAMETER,
 # Set the straight speed and turn rate
 robot.settings(straight_speed=config.DRIVE_SPEED_NORMAL, turn_rate=config.TURN_RATE)
 
-# Go forward 750mm 
+# Go forward 600mm 
 robot.straight(750)
 
-# Drive forward till we sense white followed by black 
+# Drive forward till we sense white followed by black
 drive_utils.drive_till_black(robot, left_sensor)
         
-# Turn left to face the tire
-drive_utils.gyro_turn(robot, gyro, -36)
+# Turn left
+drive_utils.gyro_turn(robot, gyro, -37)
 
 # Go forward to the tire
 robot.straight(265)
@@ -66,7 +66,7 @@ drive_utils.gyro_turn(robot, gyro, -46)
 # Go back and align with the wall before going forward.
 robot.straight(-200)
 
-# Bring the arm down so that it doesn't get stuck in the bridge
+# Bring the arm down so that it doesn't crash in the bridge
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -150, then=Stop.HOLD, wait=True)
 
 # Go under the bridge
@@ -82,24 +82,33 @@ drive_utils.drive_till_black(robot, right_sensor)
 robot.straight(150)
 
 # Turn left towards the swing
-drive_utils.gyro_turn(robot, gyro, -105)
+drive_utils.gyro_turn(robot, gyro, -103)
 
-# Bring the Tire arm down to give way for the slide arm
+# Bring the Tire arm down
 front_motor_1.run_angle(config.ARM_MOTOR_SPEED, -240, then=Stop.HOLD, wait=True)
 
 #Bring slide arm down
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 212, then=Stop.HOLD, wait=True)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 205, then=Stop.HOLD, wait=True)
 
 #Go straight to the slide
 robot.straight(210)
 
 #slide the people off the slide
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -120, then=Stop.HOLD, wait=True)
+front_motor_2.run_angle(config.ARM_MOTOR_SPEED_SUPER_FAST, -120, then=Stop.HOLD, wait=True)
 
-#Fold attachments back in and go to base
-front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 200, then=Stop.HOLD, wait=True)
-front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 240, then=Stop.HOLD, wait=True)
-drive_utils.gyro_turn(robot, gyro, 45)
-robot.straight(300)
-drive_utils.gyro_turn(robot, gyro, -45)
-robot.straight(700)
+robot.stop()
+
+# Set the straight speed and turn rate
+robot.settings(straight_speed=config.DRIVE_SPEED_SUPER_FAST, turn_rate=config.TURN_RATE)
+
+# Turn left to go back to base
+robot.turn(19)
+
+#Go straight to base
+robot.straight(200)
+
+# Turn left to go back to base
+robot.turn(-15)
+
+#Go straight to base
+robot.straight(1000)
