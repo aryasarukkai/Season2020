@@ -65,95 +65,114 @@ watch = StopWatch()
 ev3 = EV3Brick()
 
 # Select or skip this trip
-ev3.speaker.say("To Run trip 1 press the LEFT BUTTON")
+ev3.speaker.say("TRIP ONE")
 ev3.screen.print("TRIP 1")
 
+# Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
 i=0
-while Button.LEFT not in ev3.buttons.pressed():
+while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
     i = i + 1
 
-# Initilize our motors
-left_motor = Motor(Port.A)
-right_motor = Motor(Port.D)
-front_motor_1 = Motor(Port.C)
+if (Button.LEFT in ev3.buttons.pressed())
+    # Initilize our motors
+    left_motor = Motor(Port.A)
+    right_motor = Motor(Port.D)
+    front_motor_1 = Motor(Port.C)
 
-# Initialize the color sensors and motors.
-right_sensor = ColorSensor(Port.S1)
-left_sensor = ColorSensor(Port.S4)
-ARM_MOTOR_SPEED = 400
-WHEEL_DIAMETER = 92
-AXLE_TRACK = 130
-DRIVE_SPEED_FAST = 350
-DRIVE_SPEED_NORMAL = 200
-DRIVE_SPEED_SLOW = 100
-DRIVE_EXTRA_SLOW = 30
-CIRCUMFERENCE = 3.14 * WHEEL_DIAMETER # Diameter = 100mm, Circumference = 314.10mm = 1 rotation
+    # Initialize the color sensors and motors.
+    right_sensor = ColorSensor(Port.S1)
+    left_sensor = ColorSensor(Port.S4)
+    ARM_MOTOR_SPEED = 400
+    WHEEL_DIAMETER = 92
+    AXLE_TRACK = 130
+    DRIVE_SPEED_FAST = 350
+    DRIVE_SPEED_NORMAL = 200
+    DRIVE_SPEED_SLOW = 100
+    DRIVE_EXTRA_SLOW = 30
+    CIRCUMFERENCE = 3.14 * WHEEL_DIAMETER # Diameter = 100mm, Circumference = 314.10mm = 1 rotation
 
-# All parameters are in millimeters
-robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_track=AXLE_TRACK)
+    # All parameters are in millimeters
+    robot = DriveBase(left_motor, right_motor, wheel_diameter=WHEEL_DIAMETER, axle_track=AXLE_TRACK)
 
-# Move forward to Step Counter
-robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)   
-robot.straight(800)
-# Slow down and start slowly pushing forward
-robot.stop()
-robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
+    # Move forward to Step Counter
+    robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)   
+    robot.straight(800)
+    # Slow down and start slowly pushing forward
+    robot.stop()
+    robot.settings(straight_speed=DRIVE_EXTRA_SLOW, turn_rate=30)
 
-# Do Step Counter (Small Steps so it doesn't get stuck)
-i=0
-for i in range(0,20):
+    # Do Step Counter (Small Steps so it doesn't get stuck)
+    i=0
+    for i in range(0,20):
+        robot.straight(10)
+        sleep(0.4)
+        i = i + 1
+    robot.stop()
+
+    # Backup a little
+    robot.straight(-50)
+    robot.stop()
+
+    # Rotate left to align with wall
+    robot.settings(straight_speed=100, turn_rate=30)
+    robot.turn(-135)
+    robot.stop()
+
+    # Back up to wall
+    robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
+    robot.straight(-45)
+
+    # Go straight a little bit
+    # HCK 1: Too far in, reduce by .8 cm // was 138 --> 130
+    robot.straight(130)
+    robot.stop()
+
+    # Rotate Right
+    robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
+    robot.turn(90)
+    robot.stop()
+
+    # Go straight to get closer to the treadmill
+    robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
+    robot.straight(560)
+    robot.stop()
+
+    # Look for black followed by white to position the tire exactly on the treadmill
+    robot.settings(straight_speed=50, turn_rate=30)
+    drive_utils.drive_till_white(robot, left_sensor)
+
+    # Tweaking to get to exact position HCK1
     robot.straight(10)
-    sleep(0.4)
-    i = i + 1
-robot.stop()
+    robot.stop()
 
-# Backup a little
-robot.straight(-50)
-robot.stop()
+    # Rotate the tire to move the tradmill
+    # front_motor_1.run_time(speed=config.ARM_MOTOR_SPEED, time=500, then=Stop.HOLD, wait=False)
+    front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5000, then=Stop.HOLD, wait=True)
 
-# Rotate left to align with wall
-robot.settings(straight_speed=100, turn_rate=30)
-robot.turn(-135)
-robot.stop()
+    # rotate motor 2 to go down to rowing machine
+    front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=True)
+    
+    # keep pushing down while going back
+    front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED, 30, then=Stop.HOLD, wait=False)
 
-# Back up to wall
-robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
-robot.straight(-45)
+    # Pull back rowing machine by going back straight in reverse
+    # HCK 2: Lowered distance to not pull too much // 180 --> 160
+    robot.straight(-160)
 
-# Go straight a little bit
-robot.straight(138)
-robot.stop()
+    # Turn left to pull into small circle
+    robot.turn(-60)
+    front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -80, then=Stop.HOLD, wait=True)
+    robot.turn(60)
+    robot.stop()
 
-# Rotate Right
-robot.settings(straight_speed=DRIVE_SPEED_SLOW, turn_rate=30)
-robot.turn(90)
-robot.stop()
+    # Come back home
+    robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)
+    robot.straight(-1880)
 
-# Go straight to get closer to the treadmill
-robot.settings(straight_speed=DRIVE_SPEED_NORMAL, turn_rate=30)
-robot.straight(560)
-robot.stop()
-
-# Look for black followed by white to position the tire exactly on the treadmill
-robot.settings(straight_speed=50, turn_rate=30)
-drive_utils.drive_till_white(robot, left_sensor)
-
-# Tweaking to get to exact position HCK1
-robot.straight(10)
-robot.stop()
-
-# Rotate the tire to move the tradmill
-# front_motor_1.run_time(speed=config.ARM_MOTOR_SPEED, time=500, then=Stop.HOLD, wait=False)
-front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5000, then=Stop.HOLD, wait=True)
-
-# Come back home
-robot.settings(straight_speed=DRIVE_SPEED_FAST, turn_rate=30)
-robot.straight(-1880)
-
-# End of trip: Stop Robot and all motors
-robot.stop()
-front_motor_1.stop()
-front_motor_2.stop()
+    # End of trip: Stop Robot and all motors
+    robot.stop()
+    front_motor_1.stop()
+    front_motor_2.stop()
 
 # TRIP 2 CODE ########################
 
@@ -167,7 +186,12 @@ ev3 = EV3Brick()
 ev3.speaker.say("TRIP TWO")
 ev3.screen.print("TRIP 2")
 
-if Button.LEFT in ev3.buttons.pressed(): 
+# Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
+i=0
+while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+    i = i + 1
+
+if (Button.LEFT in ev3.buttons.pressed())
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
@@ -266,7 +290,11 @@ ev3 = EV3Brick()
 ev3.speaker.say("TRIP THREE")
 ev3.screen.print("TRIP 3")
 
-if Button.LEFT in ev3.buttons.pressed(): 
+# Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
+i=0
+while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+    i = i + 1
+if (Button.LEFT in ev3.buttons.pressed())
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
@@ -324,7 +352,12 @@ ev3 = EV3Brick()
 ev3.speaker.say("TRIP FOUR")
 ev3.screen.print("TRIP 4")
 
-if Button.LEFT in ev3.buttons.pressed(): 
+# Wait till left button is pressed; then if left button pressed run trip, right button skip to next trip
+i=0
+while ( (Button.LEFT not in ev3.buttons.pressed()) or (Button.RIGHT not in ev3.buttons.pressed()) ): 
+    i = i + 1
+
+if (Button.LEFT in ev3.buttons.pressed())
     # Initilize our motors
     left_motor = Motor(Port.A)
     right_motor = Motor(Port.D)
