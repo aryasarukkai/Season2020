@@ -196,12 +196,12 @@ if (Button.CENTER in ev3.buttons.pressed()):
     robot.stop()
     # END OF ORIGINAL CODE
 
-    # Rotate the tire to move the tradmill
-    # front_motor_1.run_time(speed=config.ARM_MOTOR_SPEED, time=500, then=Stop.HOLD, wait=False)
-    front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5300, then=Stop.HOLD, wait=True)
 
     # rotate motor 2 to go down to rowing machine
-    front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=True)
+   front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=False)
+
+    # Rotate the tire to move the tradmill
+    front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5300, then=Stop.HOLD, wait=True)
     
     # keep pushing down while going back
     front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED, 30, then=Stop.HOLD, wait=False)
@@ -210,11 +210,14 @@ if (Button.CENTER in ev3.buttons.pressed()):
     # HCK 2: Lowered distance to not pull too much // 180 --> 160
     robot.straight(-160)
 
+'''
     # Turn left to pull into small circle
     robot.turn(-60)
     front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 30, then=Stop.HOLD, wait=True)
     robot.turn(60)
     front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -150, then=Stop.HOLD, wait=True)
+'''
+
     robot.stop()
 
     # Come back home
@@ -385,7 +388,7 @@ if (Button.CENTER in ev3.buttons.pressed()):
     front_motor_1.stop()
     front_motor_2.stop()
 
-# TRIP 4 CODE ########################
+# TRIP 4 CODE TRIMMED ########################
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 
 # Start a stopwatch to measure elapsed time
@@ -458,13 +461,15 @@ if (Button.CENTER in ev3.buttons.pressed()):
     robot.turn(-15)
 
     # pull up motor 1 and turn right and Drop blocks
+    '''
     front_motor_1.run_angle(2*config.ARM_MOTOR_SPEED_FAST, 20, then=Stop.HOLD, wait=True)
     robot.turn(30)
     robot.straight(-30)
     front_motor_2.run_angle(2*config.ARM_MOTOR_SPEED, 2000, then=Stop.HOLD, wait=True)  
     robot.turn(-30)
     front_motor_2.run_angle(2*config.ARM_MOTOR_SPEED, -2000, then=Stop.HOLD, wait=True)  
-    
+    '''
+
     # Backup, lower elevator, go further back
     # DEBUG REMOVED robot.straight(-10)
     # HCK - reduced lowering from -100 to -70 
@@ -484,6 +489,10 @@ if (Button.CENTER in ev3.buttons.pressed()):
     robot.turn(-25)
     # HCK Adding more forward distance as it stopped working 90 --> 110 --> 120 --> 130
     robot.straight(130)
+
+    # Drop blocks into basket
+    front_motor_2.run_angle(2*config.ARM_MOTOR_SPEED, 1900, then=Stop.HOLD, wait=True)  
+    front_motor_2.run_angle(2*config.ARM_MOTOR_SPEED, -1900, then=Stop.HOLD, wait=True)
 
     # Now pull up basketball basket to middle and lower down
     front_motor_1.run_angle(config.ARM_MOTOR_SPEED, 1000, then=Stop.HOLD, wait=True)
