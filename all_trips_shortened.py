@@ -198,7 +198,7 @@ if (Button.CENTER in ev3.buttons.pressed()):
 
 
     # rotate motor 2 to go down to rowing machine
-   front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=False)
+    front_motor_2.run_angle(0.5*config.ARM_MOTOR_SPEED_FAST, 120, then=Stop.HOLD, wait=False)
 
     # Rotate the tire to move the tradmill
     front_motor_1.run_angle(5* config.ARM_MOTOR_SPEED, -5300, then=Stop.HOLD, wait=True)
@@ -210,13 +210,13 @@ if (Button.CENTER in ev3.buttons.pressed()):
     # HCK 2: Lowered distance to not pull too much // 180 --> 160
     robot.straight(-160)
 
-'''
+    '''
     # Turn left to pull into small circle
     robot.turn(-60)
     front_motor_2.run_angle(config.ARM_MOTOR_SPEED, 30, then=Stop.HOLD, wait=True)
     robot.turn(60)
     front_motor_2.run_angle(config.ARM_MOTOR_SPEED_FAST, -150, then=Stop.HOLD, wait=True)
-'''
+    '''
 
     robot.stop()
 
@@ -231,8 +231,8 @@ if (Button.CENTER in ev3.buttons.pressed()):
 
 # TRIP 2 CODE ########################
 
- # Start a stopwatch to measure elapsed time
-watch = StopWatch()
+# Start a stopwatch to measure elapsed time
+    watch = StopWatch()
 
 # Create and initialize brick before every trip
 ev3 = EV3Brick()
